@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom'
+import OAuth from '../components/OAuth'
 const Signout = () => {
   const [formdata,setFormdata]=useState({})
   const [error,setError]=useState(null)
@@ -45,6 +46,7 @@ const Signout = () => {
         <input type='email' placeholder='Email' className=' rounded-lg border p-3 focus:outline-none ' id='email' onChange={handleChange}/>
         <input type='password' placeholder='Password' className=' rounded-lg border p-3 focus:outline-none ' id='password' onChange={handleChange}/>
         <button disabled={loading} className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>{loading?'Loading...':'Sign Up'}</button>
+        <OAuth/>
       </form>
       <div className='flex items-center  gap-4'>
       <p>Have an account?</p>

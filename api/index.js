@@ -3,10 +3,14 @@ const mongoose=require('mongoose')
 const dotenv=require('dotenv')
 dotenv.config()
 
+//cors
+const cors=require('cors')
+
 const userrouter=require('./routes/user.router')
 const authUser=require('./routes/auth.route')
 
 const app=express()
+app.use(cors())
 
 mongoose.connect(process.env.MONGO).then(()=>{
     console.log("connected succesfully")
