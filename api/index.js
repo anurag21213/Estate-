@@ -5,12 +5,16 @@ dotenv.config()
 
 //cors
 const cors=require('cors')
+//cookie parser
+const cookieParser=require('cookie-parser')
 
 const userrouter=require('./routes/user.router')
 const authUser=require('./routes/auth.route')
+const listingRouter=require('./routes/listing.route')
 
 const app=express()
 app.use(cors())
+app.use(cookieParser())
 
 mongoose.connect(process.env.MONGO).then(()=>{
     console.log("connected succesfully")
@@ -25,6 +29,7 @@ app.listen(3000,()=>{
 app.use(express.json())
 app.use('/api/user',userrouter)
 app.use('/api/auth',authUser)
+app.use('/api/listing',listingRouter)
 
 app.use((err,req,res,next)=>{
     const statusCode=err.statusCode||500

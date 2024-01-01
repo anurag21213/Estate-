@@ -1,5 +1,5 @@
 const express=require("express")
-const {signupController,signInController, googleController} = require("../controllers/signupController")
+const {signupController,signInController, googleController, logoutController} = require("../controllers/signupController")
 
 const router=express.Router()
 
@@ -12,5 +12,8 @@ router.post('/signin',signInController)
 
 //google route
 router.post('/google',googleController)
+
+//logout 
+router.get('/logout',logoutController)
 
 module.exports=router

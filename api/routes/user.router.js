@@ -1,9 +1,12 @@
 const express=require('express')
-const { userController } = require('../controllers/userController')
+const { updateUserConroller, deleteUserController, } = require('../controllers/userController')
+const verifyToken = require('../utils/verifyToken')
 
 const router=express.Router()
 
 
-router.get('/',userController)
+
+router.post('/update/:id',verifyToken,updateUserConroller)
+router.delete('/delete/:id',verifyToken,deleteUserController)
 
 module.exports=router

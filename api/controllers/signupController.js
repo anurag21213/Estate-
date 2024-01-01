@@ -87,4 +87,13 @@ const googleController=async(req,res,next)=>{
  }
 }
 
-module.exports={signupController,signInController,googleController}
+const logoutController=async(req,res,next)=>{
+    try {
+        res.clearCookie('access_token')
+        res.status(200).json({message:'logout successfully'})
+    } catch (error) {
+        next(error)
+    }
+}
+
+module.exports={signupController,signInController,googleController,logoutController}
