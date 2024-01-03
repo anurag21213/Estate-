@@ -12,6 +12,8 @@ const Profile = () => {
   const [fileperc, setFilePerc] = useState(0)
   const [fileError, fileUploadError] = useState(false)
   const [formData, setFormData] = useState({})
+  const [showListingError, setShowLIstingError] = useState(false)
+  const [showListing, setShowListing] = useState([])
 
   const dispatch = useDispatch()
 
@@ -105,6 +107,39 @@ const Profile = () => {
     }
   }
 
+  const handleShowListings = async () => {
+    try {
+      setShowLIstingError(false)
+      const result = await fetch(`/api/user/listings/${currUser._id}`)
+      const data = await result.json()
+
+      if (data.success === false) {
+        setShowLIstingError(true)
+        return
+      }
+      setShowListing(data)
+      setShowLIstingError(false)
+
+    } catch (error) {
+      setShowLIstingError(true)
+    }
+  }
+
+  const handleDeleteLIsting=async(listingId)=>{
+    try {
+      const result=await fetch(`/api/listing/delete/${listingId}`,{
+        method:'DELETE'
+      })
+      const data= await result.json()
+      if(data.success===false){
+        console.log(data.message)
+        return
+      }
+      setShowListing((prev)=>prev.filter((listing)=>listing._id!=listingId))
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <div className='max-w-lg mx-auto'>
       <h2 className='text-center font-semibold text-3xl my-2  ' >Profile</h2>
@@ -124,6 +159,30 @@ const Profile = () => {
         <span className='text-red-600 cursor-pointer  font-semibold' onClick={deleteUser}>Delete Account</span>
         <span className='text-red-600 cursor-pointer font-semibold' onClick={logoutHandler}>Signout</span>
       </div>
+      <button className='text-green-700 w-full font-bold' onClick={handleShowListings}>Show listing</button>
+      <p>{showListingError ? "Error in showing listing" : ''}</p>
+      {showListing && showListing.length > 0 &&
+        <div className=' flex flex-col gap-3 '>
+          <h2 className='text-center mt-7 font-semibold text-2xl w-full '>Your Listings</h2>
+
+          {showListing.map((item, index) =>
+            <div key={index} className='flex items-center justify-between border p-3 gap-4'>
+              <Link to={`/listing/${currUser._id}`}>
+                <img src={item.imageUrls[0]} alt='listing image' className='w-16 h-16 object-contain ' />
+              </Link>
+              <Link to={`/listing/${currUser._id}`} className='text-slate-700 font-medium flex-1 hover:underline truncate'>
+                <p >{item.name}</p>
+              </Link>
+              <div className='flex flex-col' >
+                <button className='p-3 border text-red-600 uppercase' onClick={()=>handleDeleteLIsting(item._id)}>Delete</button>
+                <button className='p-3 border text-green-700 uppercase '>Edit</button>
+              </div>
+
+            </div>
+
+          )}
+        </div>
+      }
     </div>
   )
 }
