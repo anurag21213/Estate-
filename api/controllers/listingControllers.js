@@ -26,5 +26,37 @@ const deleteListingController = async (req, res, next) => {
     }
 }
 
+const updateListingController=async(req,res,next)=>{
+    const listing= await Listing.findById(req.params.id)
 
-module.exports = { createListing, deleteListingController }
+    if(!listing){
+        return next(errorHandler(404,"Listing not found"))
+    }
+    if(req.user.id!==listing.userRefs){
+        return next(errorHandler(401,"You can only update you listings"))
+    }
+
+    try {
+       const updatedListing= await Listing.findByIdAndUpdate(req.params.id,req.body,{new:true})
+       res.status(200).json(updatedListing)
+    } catch (error) {
+        next(error)
+    }
+
+}
+
+const getLIstingController=async(req,res,next)=>{
+   try {
+     const listingData=await Listing.findById(req.params.id)
+     if(!listingData){
+        return next(404,'LIsting not found')
+     }
+     
+     res.status(200).json(listingData)
+   } catch (error) {
+    next(error)
+   }
+}
+
+
+module.exports = { createListing, deleteListingController,updateListingController,getLIstingController }
