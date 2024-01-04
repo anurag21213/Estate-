@@ -19,36 +19,49 @@ const updateUserConroller = async (req, res, next) => {
             }
         }, { new: true })
 
-        const {password,...rest}=updatedUser._doc
+        const { password, ...rest } = updatedUser._doc
         res.status(200).json(rest)
     } catch (error) {
         next(error)
     }
 }
 
-const deleteUserController=async(req,res,next)=>{
-    if(req.user.id!=req.params.id) return next(errorHandler(401,'You are not authorized to delete!!'))
+const deleteUserController = async (req, res, next) => {
+    if (req.user.id != req.params.id) return next(errorHandler(401, 'You are not authorized to delete!!'))
     try {
         await UserModel.findByIdAndDelete(req.params.id);
         res.clearCookie('access_token')
-        res.status(200).json({message:'user has been deleted'})
+        res.status(200).json({ message: 'user has been deleted' })
     } catch (error) {
         next(error)
     }
 }
 
-const getUserListings=async(req,res,next)=>{
-    if(req.user.id===req.params.id){
+const getUserListings = async (req, res, next) => {
+    if (req.user.id === req.params.id) {
         try {
-          const listings=await Listing.find({userRefs:req.params.id})
-          res.status(200).json(listings)
+            const listings = await Listing.find({ userRefs: req.params.id })
+            res.status(200).json(listings)
         } catch (error) {
             next(error)
         }
     }
-    else{
-        next(errorHandler(401,'You can view only your listings'))
+    else {
+        next(errorHandler(401, 'You can view only your listings'))
     }
-    
+
 }
-module.exports = { updateUserConroller,deleteUserController,getUserListings }
+
+const getUser = async (req, res, next) => {
+    try {
+        const user = await UserModel.findById(req.params.id)
+        if (!user) {
+            return next(errorHandler(404, 'user not found'))
+        }
+        const { password: pass, ...rest } = user._doc
+        res.status(200).json(rest)
+    } catch (error) {
+        next(error)
+    }
+}
+module.exports = { updateUserConroller, deleteUserController, getUserListings, getUser }
