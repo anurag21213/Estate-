@@ -9,6 +9,7 @@ import ProtectedRoute from "./components/ProtectedRoute"
 import CreateListing from "./pages/CreateListing"
 import UpdateListing from './pages/UpdateListing'
 import LIsting from "./pages/LIsting"
+import Search from "./pages/Search"
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/listing/:listingId" element={<LIsting />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/profile" element={<Profile />} />
