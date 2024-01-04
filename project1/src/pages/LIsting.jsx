@@ -63,14 +63,14 @@ const LIsting = () => {
                 </Swiper>
 
                 <div className='max-w-6xl mx-auto mt-4 p-2'>
-                    <p className='my-2 p-3 font-semibold text-xl' >{listing.name} - {`$ ${listing.regularPrice} /Month`}</p>
+                    <p className='my-2 p-3 font-semibold text-xl' >{listing.name} - {`$ ${listing.regularPrice}`} {listing.type==='rent'?'/Month':''} </p>
                     <p className='flex items-center  text-green-700 w-full '><FaMapMarkerAlt /><span className='text-slate-700 font-mono mx-3 text-clip'> {listing.address}</span></p>
                     <div className='p-2 mt-1 flex gap-4'>
                         <p className='bg-red-900 w-full max-w-[200px] text-white text-center p-1 rounded-lg'>
                             {listing.type === 'rent' ? 'For Rent' : 'For Sale'}
                         </p>
                         {
-                            listing.offer && (<p className='bg-green-900 w-full max-w-[200px] text-white text-center p-1 rounded-lg'>${+listing.regularPrice - +listing.discountedPrice}</p>)
+                            listing.offer && (<p className='bg-green-900 w-full max-w-[200px] text-white text-center p-1 rounded-lg'>${+listing.regularPrice - +listing.discountedPrice} Discount</p>)
                         }
                     </div>
                     <p ><span className='font-bold'>Description:</span> {
