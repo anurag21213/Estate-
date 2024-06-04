@@ -70,7 +70,7 @@ const Home = () => {
           Anurag Estate is the best place to find your next perfect place to live<br />
           we have a wide range of property to choose from.
         </div>
-        <Link to={`/search`} className='text-xs sm:text-sm text-blue-800 font-bold hover:underline'>Let;s get started...</Link>
+        <Link to={`/search`} className='getstarted text-xs sm:text-sm text-blue-800 font-bold hover:underline'>Let;s get started...</Link>
       </div>
       {offerListing && <Swiper navigation>
         {
@@ -88,7 +88,7 @@ const Home = () => {
 
       <div className='flex flex-col gap-4 mt-5 p-3 max-w-8xl mx-auto'>
         <div>
-        <h1 className='font-bold text-2xl text-slate-800 gap-6 mt-9'>Recent Offers</h1>
+        <h1 className='offer font-bold text-2xl text-slate-800 gap-6 mt-9'>Recent Offers</h1>
         <Link to={`/search?offer=true`} className='font-semibold text-xs md:text-sm hover:underline text-green-700 mb-9'>Show more offers</Link>
         <div className='flex flex-wrap gap-4 md:gap-10 items-center justify-center'>
             {
@@ -100,7 +100,7 @@ const Home = () => {
 
         </div>
         <div>
-        <h1 className='font-bold text-2xl text-slate-800 gap-6 mt-9'>Recent places for rent</h1>
+        <h1 className='rent font-bold text-2xl text-slate-800 gap-6 mt-9'>Recent places for rent</h1>
         <Link to={`/search?type=rent`} className='font-semibold text-xs md:text-sm hover:underline text-green-700 mb-9'>Show more offers</Link>
         <div className='flex  flex-wrap gap-4 md:gap-10 items-center justify-center'>
             {
@@ -112,7 +112,7 @@ const Home = () => {
 
         </div>
         <div className='flex flex-col gap-1'>
-        <h1 className='font-bold text-2xl text-slate-800 gap-6 mt-9 '>Recent places for Sale</h1>
+        <h1 className='sale font-bold text-2xl text-slate-800 gap-6 mt-9 '>Recent places for Sale</h1>
         <Link to={`/search?type=sale`} className='font-semibold text-xs md:text-sm hover:underline text-green-700 mb-9'>Show more offers</Link>
         <div className='flex flex-wrap gap-4 md:gap-10 items-center justify-center'>
             {
